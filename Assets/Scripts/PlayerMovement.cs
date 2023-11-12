@@ -36,17 +36,22 @@ public class PlayerMovement : MonoBehaviour
         {
             if (Input.GetButtonDown("Jump"))
             {
-                rb.velocity = new Vector3(rb.velocity.x, jumpForce, rb.velocity.z);
-                totalJumps++;
+                Jump();
             } 
         }
+    }
+    void Jump(float jumpMult = 1.0f)
+    {
+        rb.velocity = new Vector3(rb.velocity.x, jumpForce * jumpMult, rb.velocity.z);
+        totalJumps++;
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if collision.gameObject.CompareTag("Enemy Head");
+        if (collision.gameObject.CompareTag("Enemy Head"))
         {
             Destroy(collision.transform.parent.gameObject);
+            Jump(0.5f);
         }
     }
     bool IsGrounded()
